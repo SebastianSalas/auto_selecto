@@ -39,7 +39,7 @@ Para ejecutar el ambiente virtual (sólo en Windows):
 Mac: 
 
 
-source .venv/bin/activate
+source venv/bin/activate
 
 <br>
 Realizar las instalaciones de las dependencias (procure haber ejecutado el ambiente virtual):
@@ -50,6 +50,8 @@ pip install -r requirements.txt
 <br>
 Para realizar las migraciones a la base de datos de postgres (NOTA: Asegurarse de las respectivas credenciales de acceso a su BD local):
 <br>
+
+
 Windows:
 
 
