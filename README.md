@@ -36,6 +36,11 @@ Para ejecutar el ambiente virtual (sólo en Windows):
 .\venv\Scripts\activate
 
 
+Mac: 
+
+
+source .venv/bin/activate
+
 <br>
 Realizar las instalaciones de las dependencias (procure haber ejecutado el ambiente virtual):
 
@@ -44,10 +49,23 @@ pip install -r requirements.txt
 
 <br>
 Para realizar las migraciones a la base de datos de postgres (NOTA: Asegurarse de las respectivas credenciales de acceso a su BD local):
+<br>
+Windows:
 
 
 python manage.py makemigrations
+
+
 python manage.py migrate
+
+
+Mac:
+
+
+python3 manage.py makemigrations
+
+
+python3 manage.py migrate
 
 <br>
 Para ejecutar el servidor Django:
