@@ -23,10 +23,10 @@ pip install virtualenv
 
 
 <br>
-Para crear el ambiente virtual llamado "venv":
+Para crear el ambiente virtual llamado ".venv":
 
 
-python -m venv venv
+python -m venv .venv
 
 
 <br>
@@ -36,10 +36,10 @@ Para ejecutar el ambiente virtual (sólo en Windows):
 .\venv\Scripts\activate
 
 
-Mac: 
+<strong> Mac: </strong> 
 
 
-source venv/bin/activate
+source .venv/bin/activate
 
 <br>
 Realizar las instalaciones de las dependencias (procure haber ejecutado el ambiente virtual):
@@ -61,7 +61,7 @@ python manage.py makemigrations
 python manage.py migrate
 
 
-Mac:
+<strong> Mac: </strong>
 
 
 python3 manage.py makemigrations
