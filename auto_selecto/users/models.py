@@ -1,13 +1,34 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
 from concesionariaApp.models import Office
 
-class User(models.Model):
+class UserAccountManager(BaseUserManager):
+    def create_user(self, email,name,last_name, cedula,password=None):
+      if not email:
+        raise ValueError('Debe tener un email')
+      
+      email = self.normalize_email(email)
+      user = self.model(email=email, name=name, last_name=last_name, cedula=cedula)
+
+      user.set_password(password)
+      user.save()
+
+      return user
+    
+
+
+class User(AbstractBaseUser,PermissionsMixin):
   name = models.CharField(max_length=60)
   last_name = models.CharField(max_length=60)
-  email = models.CharField(max_length=100)
+  email = models.EmailField(unique=True, blank=False)
   cedula = models.CharField(max_length=100)
   created_at = models.DateTimeField(auto_now_add=True)
+
+  objects = UserAccountManager()
+
+  USERNAME_FIELD = "email"
+  REQUIRED_FIELDS = ['cedula', 'name', 'last_name']
 
 
   def __str__(self):
