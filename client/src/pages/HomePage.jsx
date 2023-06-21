@@ -53,7 +53,7 @@ export default function HomePage() {
             <section className="text-center h-screen w-screen relative overflow-hidden">
               <div className='z-30 relative h-full flex flex-col '>
                 <header>
-                  <h2 className='text-white pt-40 text-4xl font-medium mb-3'>Bienvenido al Concesionario de Autos</h2>
+                  <h2 className='text-white pt-40 text-4xl font-medium mb-3'>Bienvenido a AUTO SELECTO</h2>
                   <p className='text-white text-sm'>Tenemos una amplia selección de vehículos de calidad.</p>
                 </header>
 
@@ -94,6 +94,6 @@ export default function HomePage() {
             
           </main>
         </>
-    )
+    );
 
 }
