@@ -1,11 +1,10 @@
 export default function LoginPage(){
 
     return(
-        <>
-            <div className="flex items-center justify-center min-h-screen bg-gray-100">
-                <div className="max-w-md w-full px-6 py-8 bg-white shadow-md">
-                    <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Iniciar sesión</h2>
-                    <form>
+        <main className="flex items-center justify-center min-h-screen">
+            <div className="max-w-md w-full px-6 py-8 bg-white shadow-md">
+                <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Iniciar sesión</h2>
+                <form>
                     <div className="mb-4">
                         <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
                         Email
@@ -13,7 +12,7 @@ export default function LoginPage(){
                         <input
                         type="email"
                         id="email"
-                        className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500"
+                        className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
                         placeholder="Ingresa tu email"
                         />
                     </div>
@@ -24,7 +23,7 @@ export default function LoginPage(){
                         <input
                         type="password"
                         id="password"
-                        className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500"
+                        className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
                         placeholder="Ingresa tu contraseña"
                         />
                     </div>
@@ -36,10 +35,9 @@ export default function LoginPage(){
                         Ingresar
                         </button>
                     </div>
-                    </form>
-                </div>
+                </form>
             </div>
-        </>
+        </main>
     )
 
 }

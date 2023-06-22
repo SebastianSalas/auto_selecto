@@ -39,9 +39,9 @@ export default function HomePage() {
                   </Link>
                 </li>
                 <li>
-                  <a href="#vehiculos">
-                        Registrarse
-                  </a>
+                  <Link to='/register'>
+                    Registrarse
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -50,7 +50,7 @@ export default function HomePage() {
 
           <main className='relative w-full h-screen overflow-auto'>
 
-            <section className="text-center h-screen w-screen relative overflow-hidden">
+            <section className="text-center h-screen w-full relative overflow-hidden">
               <div className='z-30 relative h-full flex flex-col '>
                 <header>
                   <h2 className='text-white pt-40 text-4xl font-medium mb-3'>Bienvenido al Concesionario de Autos</h2>
@@ -73,7 +73,8 @@ export default function HomePage() {
               </div>
 
             </section>
-            <section id="vehiculos">
+            
+            <section id="vehiculos" className="text-center h-screen w-full relative overflow-hidden">
                 <h2 className="text-2xl font-bold mb-4">Nuestros Vehículos</h2>
                 <div className="grid grid-cols-3 gap-8">
                   
