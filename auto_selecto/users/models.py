@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-from concesionariaApp.models import Office
+from concesionariaApp.models import *
 
 class UserAccountManager(BaseUserManager):
     def create_user(self, email,name,last_name, cedula,password=None):
@@ -16,7 +16,6 @@ class UserAccountManager(BaseUserManager):
 
       return user
     
-
 
 class User(AbstractBaseUser,PermissionsMixin):
   name = models.CharField(max_length=60)
@@ -43,7 +42,6 @@ class Client(models.Model):
   cedula = models.CharField(max_length=100)
   created_at = models.DateTimeField(auto_now_add=True)
 
-
   def __str__(self):
     return f"id: {self.id}, user_id: {self.user_id}, name: {self.name}, last_name: {self.last_name}, email: {self.email}, telephone: {self.telephone}, cedula: {self.cedula}, created_at: {self.created_at}"
   
@@ -57,6 +55,29 @@ class OfficeManager(models.Model):
   cedula = models.CharField(max_length=100)
   created_at = models.DateTimeField(auto_now_add=True)
 
-
   def __str__(self):
     return f"id: {self.id}, user_id: {self.user_id}, office_id: {self.office_id}, name: {self.name}, last_name: {self.last_name}, email: {self.email}, telephone: {self.telephone}, cedula: {self.cedula}, created_at: {self.created_at}"
+  
+class seller(models.Model):
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  office = models.OneToOneField(Office, on_delete=models.CASCADE)
+  name = models.CharField(max_length=60)
+  last_name = models.CharField(max_length=60, blank= True)
+  telephone = models.CharField(max_length=10, blank= True)
+  email = models.EmailField(max_length=100, blank= True)
+  cedula = models.CharField(max_length=10)
+
+  def __str__(self):
+    return f"id: {self.id}, user_id: {self.user_id}, office_id: {self.office_id}, name: {self.name}, last_name: {self.last_name}, telephone: {self.telephone}, email: {self.email}, cedula: {self.cedula}"
+
+class workshopBoos(models.Model):
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  office = models.OneToOneField(Office, on_delete=models.CASCADE)
+  name = models.CharField(max_length=60)
+  last_name = models.CharField(max_length=60, blank= True)
+  telephone = models.CharField(max_length=10, blank= True)
+  email = models.EmailField(max_length=100, blank= True)
+  cedula = models.CharField(max_length=10)
+
+  def __str__(self):
+    return f"id: {self.id}, user_id: {self.user_id}, office_id: {self.office_id}, name: {self.name}, last_name: {self.last_name}, telephone: {self.telephone}, email: {self.email}, cedula: {self.cedula}"
