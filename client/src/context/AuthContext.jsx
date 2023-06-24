@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
     let data = await response.json();
     console.log("data: ", data);
     if (response.status === 201) {
-      navigate("/");
+      loginUser(e)
     } else {
       alert("Something went wrong!");
     }
