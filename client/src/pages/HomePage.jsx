@@ -1,61 +1,49 @@
-import VideoInical from '../assets/videos/video-inicial.webm'
+import VideoInical from "../assets/videos/video-inicial.webm";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
+  return (
+    <>
+      <div>
+        <img className="h-12" src="#" alt="Concesionario de Autos" />
+      </div>
 
-    return(
-        <>
-          <header className="py-6 px-10 flex items-center fixed top-0 w-full justify-between z-50">
+      <nav>
+        <ul className="flex text-sm text-white [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2">
+          <li>
+            <a href="#inicio">Inicio</a>
+          </li>
+          <li>
+            <a href="#vehiculos">Vehículos</a>
+          </li>
+          <li>
+            <a href="#contacto">Contacto</a>
+          </li>
+        </ul>
+      </nav>
 
-            <div>
-              <img className="h-12" src="#" alt="Concesionario de Autos"/>
-            </div>
+      <nav>
+        <ul className="flex text-sm text-white [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2">
+          <li>
+            <Link to="/login">Iniciar Sesion</Link>
+          </li>
+          <li>
+            <a href="#vehiculos">Registrarse</a>
+          </li>
+        </ul>
+      </nav>
 
-            <nav>
-              <ul className="flex text-sm text-white [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2">
-                <li>
-                  <a href="#inicio">
-                        Inicio
-                  </a>
-                </li>
-                <li>
-                  <a href="#vehiculos">
-                        Vehículos
-                  </a>
-                </li>
-                <li>
-                  <a href="#contacto">
-                      Contacto
-                  </a>
-                </li>
-              </ul>
-            </nav>
-
-            <nav>
-              <ul className="flex text-sm text-white [&>li>a]:font-medium [&>li>a]:inline-block [&>li>a]:px-4 [&>li>a]:py-2">
-                <li>
-                  <Link to="/login">
-                    Iniciar Sesion
-                  </Link>
-                </li>
-                <li>
-                  <Link to='/register'>
-                    Registrarse
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-
-          </header>
-
-          <main className='relative w-full h-screen overflow-auto'>
-
-            <section className="text-center h-screen w-full relative overflow-hidden">
-              <div className='z-30 relative h-full flex flex-col '>
-                <header>
-                  <h2 className='text-white pt-40 text-4xl font-medium mb-3'>Bienvenido al Concesionario de Autos</h2>
-                  <p className='text-white text-sm'>Tenemos una amplia selección de vehículos de calidad.</p>
-                </header>
+      <main className="relative w-full h-screen overflow-auto">
+        <section className="text-center h-screen w-screen relative overflow-hidden">
+          <div className="z-30 relative h-full flex flex-col ">
+            <header>
+              <h2 className="text-white pt-40 text-4xl font-medium mb-3">
+                Bienvenido a AUTO SELECTO
+              </h2>
+              <p className="text-white text-sm">
+                Tenemos una amplia selección de vehículos de calidad.
+              </p>
+            </header>
 
                 <footer className='flex flex-col flex-grow justify-end pb-24'>
                   <div>
@@ -73,8 +61,7 @@ export default function HomePage() {
               </div>
 
             </section>
-            
-            <section id="vehiculos" className="text-center h-screen w-full relative overflow-hidden">
+            <section id="vehiculos">
                 <h2 className="text-2xl font-bold mb-4">Nuestros Vehículos</h2>
                 <div className="grid grid-cols-3 gap-8">
                   
