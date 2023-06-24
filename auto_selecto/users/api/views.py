@@ -1,11 +1,13 @@
 from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-
+from rest_framework import generics
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
+from .serializers import UserSerializer
+from users import models
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -32,3 +34,6 @@ def getRoutes(request):
     ]
 
     return Response(routes)
+
+class UserCreateView(generics.CreateAPIView):
+    serializer_class = UserSerializer

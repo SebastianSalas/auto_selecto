@@ -9,14 +9,15 @@ import AuthContext from "./context/AuthContext";
 import { useContext } from "react";
 
 export default function App() {
-  let {user} = useContext(AuthContext)
+  let { user } = useContext(AuthContext);
   return (
     <Routes>
-      <Route path="/" element={
+      {/*<Route path="/" element={
         !user ? <Navigate to="/login" /> : <HomePage />
-      } />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/sign_up" element={<SignupPage />} />
+      } />*/}
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />} />
+      <Route path="/sign_up" element={!user ? <SignupPage /> : <Navigate to="/" />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
