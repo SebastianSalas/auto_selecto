@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-from concesionariaApp.models import *
+from concesionariaApp.models import Office
 
 class UserAccountManager(BaseUserManager):
     def create_user(self, email,name,last_name, cedula,password=None):

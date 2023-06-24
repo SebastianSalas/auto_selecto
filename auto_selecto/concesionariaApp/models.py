@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-from users.models import *
-
 class Office(models.Model):
   name = models.CharField(max_length=60)
   address = models.CharField(max_length=60)
@@ -13,11 +11,10 @@ class Office(models.Model):
   def __str__(self):
     return f"id: {self.id}, name: {self.name}, address: {self.address}, telephone: {self.telephone}, nit: {self.nit}, created_at: {self.created_at}"
 
-
 class sparePart(models.Model):
   name = models.CharField(max_length=60)
   description = models.CharField(max_length=500, blank= True)
-  officeID = models.ForeignKey(Office, on_delete=models.CASCADE)
+  officeID = models.OneToOneField(Office, on_delete=models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
 
   def __str__(self):
@@ -44,6 +41,7 @@ class vehicle(models.Model):
 
 
 class sale(models.Model):
+  from users.models import Client, seller
   date = models.DateField()
   seller_id = models.OneToOneField(seller, on_delete=models.CASCADE, default=None)
   vehicle_id = models.OneToOneField(vehicle, on_delete=models.CASCADE, default=None)
