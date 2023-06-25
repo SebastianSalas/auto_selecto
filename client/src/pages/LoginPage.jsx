@@ -7,7 +7,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="flex items-center justify-center min-h-screen">
         <div className="max-w-md w-full px-6 py-8 bg-white shadow-md">
           <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
             Iniciar sesión
