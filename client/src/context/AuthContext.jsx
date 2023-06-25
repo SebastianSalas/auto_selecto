@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AuthContext = createContext();
 
@@ -41,6 +43,7 @@ export const AuthProvider = ({ children }) => {
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
       navigate("/");
+      toast.success("Has iniciado sesión");
     } else {
       alert("Something went wrong!");
     }
@@ -51,7 +54,8 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("authTokens");
     navigate("/login");
-    location.reload();
+    
+    toast.warning("Se ha cerrado la sesión");
   };
 
   let createUser = async (e) => {
@@ -73,7 +77,23 @@ export const AuthProvider = ({ children }) => {
     let data = await response.json();
     console.log("data: ", data);
     if (response.status === 201) {
-      loginUser(e)
+      let response = await fetch("http://localhost:8000/api/token/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: e.target.email.value,
+        password: e.target.password.value,
+      }),
+    });
+    let data = await response.json();
+    console.log("data: ", data);
+      setAuthTokens(data);
+      setUser(jwt_decode(data.access));
+      localStorage.setItem("authTokens", JSON.stringify(data));
+      navigate("/");
+      toast.success("¡Bienvenido! La creación fue un éxito");
     } else {
       alert("Something went wrong!");
     }

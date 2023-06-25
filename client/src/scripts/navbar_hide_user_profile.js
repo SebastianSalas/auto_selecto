@@ -9,5 +9,9 @@ function navbarHideUserProfile() {
       userMenu.style.visibility = "hidden";
     }
   });
+
+  window.addEventListener("hashchange", () => {
+    userMenu.style.visibility = "hidden";
+  });
 }
 export default navbarHideUserProfile;
