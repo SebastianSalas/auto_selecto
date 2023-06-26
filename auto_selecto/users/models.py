@@ -1,19 +1,22 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-from concesionariaApp.models import Office
+from concesionariaApp.models import Office, CompanyPosition
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, name, last_name, cedula, password=None):
+    def create_user(self, email, name, last_name, cedula, password):
         if not email:
             raise ValueError('Debe tener un email')
-      
+        if not password:
+           raise ValueError('Debe tener una contraseña')
         email = self.normalize_email(email)
         user = self.model(email=email, name=name, last_name=last_name, cedula=cedula)
         user.set_password(password)
         user.save()
         return user
-    
+
     def create_superuser(self, email, name, last_name, cedula, password):
         user = self.create_user(email, name, last_name, cedula, password)
         user.is_staff = True
@@ -38,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return f"id: {self.id}, name: {self.name}, last_name: {self.last_name}, email: {self.email}, cedula: {self.cedula}, created_at: {self.created_at}"
 
 class Client(models.Model):
-  user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
   name = models.CharField(max_length=60)
   last_name = models.CharField(max_length=60)
   email = models.CharField(max_length=100)
@@ -46,11 +49,10 @@ class Client(models.Model):
   cedula = models.CharField(max_length=100)
   created_at = models.DateTimeField(auto_now_add=True)
 
-
   def __str__(self):
     return f"id: {self.id}, user_id: {self.user_id}, name: {self.name}, last_name: {self.last_name}, email: {self.email}, telephone: {self.telephone}, cedula: {self.cedula}, created_at: {self.created_at}"
   
-class OfficeManager(models.Model):
+class StaffMember(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   office = models.OneToOneField(Office, on_delete=models.CASCADE)
   name = models.CharField(max_length=60)
@@ -59,7 +61,8 @@ class OfficeManager(models.Model):
   telephone = models.CharField(max_length=10)
   cedula = models.CharField(max_length=100)
   created_at = models.DateTimeField(auto_now_add=True)
+  company_position = models.OneToOneField(CompanyPosition, on_delete=models.CASCADE)
 
 
   def __str__(self):
-    return f"id: {self.id}, user_id: {self.user_id}, office_id: {self.office_id}, name: {self.name}, last_name: {self.last_name}, email: {self.email}, telephone: {self.telephone}, cedula: {self.cedula}, created_at: {self.created_at}"
+    return f"id: {self.id}, user_id: {self.user_id}, office_id: {self.office_id}, name: {self.name}, last_name: {self.last_name}, email: {self.email}, telephone: {self.telephone}, cedula: {self.cedula}, company_position_id: {self.company_position_id}, created_at: {self.created_at}"

@@ -79,6 +79,23 @@ export default function SignupPage() {
           </div>
           <div className="mb-4">
             <label
+              htmlFor="telephone"
+              className="block text-gray-700 font-bold mb-2"
+            >
+              Teléfono
+            </label>
+            <input
+              name="telephone"
+              type="number"
+              id="telephone"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
+              placeholder="Ingresa tu teléfono"
+              min="1"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
               htmlFor="password"
               className="block text-gray-700 font-bold mb-2"
             >

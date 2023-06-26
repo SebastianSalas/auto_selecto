@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
 
   let createUser = async (e) => {
     e.preventDefault();
-    let response = await fetch("http://localhost:8000/api/users/create/", {
+    let response = await fetch("http://localhost:8000/api/client/create/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,8 +70,8 @@ export const AuthProvider = ({ children }) => {
         name: e.target.name.value,
         last_name: e.target.last_name.value,
         cedula: e.target.cedula.value,
+        telephone: e.target.telephone.value,
         password: e.target.password.value,
-        re_password: e.target.password.value,
       }),
     });
     let data = await response.json();
