@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from users.models import StaffMember
 from rest_framework import generics
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -17,6 +18,13 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     token['last_name'] = user.last_name
     token['email'] = user.email
     token['cedula'] = user.cedula
+    if user.has_related_object():
+      token['staff_member_id'] = user.staffmember.id
+      token['company_position_id'] = user.staffmember.company_position.id
+    else:
+      token['staff_member_id'] = None
+      token['company_position_id'] = None
+
     # ...
 
     return token
@@ -40,4 +48,8 @@ class ClientCreateView(generics.CreateAPIView):
   serializer_class = ClientSerializer
 
 class StaffMemberCreateView(generics.CreateAPIView):
+  serializer_class = StaffMemberSerializer
+
+class StaffMemberListView(generics.ListAPIView):
+  queryset = StaffMember.objects.all()
   serializer_class = StaffMemberSerializer

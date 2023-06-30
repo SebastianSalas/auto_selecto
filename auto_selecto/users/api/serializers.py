@@ -53,7 +53,7 @@ class ClientSerializer(serializers.ModelSerializer):
 class StaffMemberSerializer(serializers.ModelSerializer):
     class Meta:
         model = StaffMember
-        fields = ['name', 'last_name', 'email', 'telephone', 'cedula', 'company_position','office']
+        fields = ['id', 'name', 'last_name', 'email', 'telephone', 'cedula', 'company_position','office']
 
     @transaction.atomic
     def create(self, validated_data):
@@ -67,3 +67,4 @@ class StaffMemberSerializer(serializers.ModelSerializer):
             staff = StaffMember(user=user, **validated_data)
             staff.save()
             return staff
+

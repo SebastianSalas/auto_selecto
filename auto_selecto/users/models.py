@@ -39,6 +39,24 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f"id: {self.id}, name: {self.name}, last_name: {self.last_name}, email: {self.email}, cedula: {self.cedula}, created_at: {self.created_at}"
+    
+    def find(id):
+        try:
+            user = User.objects.get(id=id)
+            return user
+        except User.DoesNotExist:
+            return None
+    
+    def get_staff_member_id(self):
+       return self.staffmember.id
+    
+    def has_related_object(self):
+        has_staff_member = False
+        try:
+            has_staff_member = (self.staffmember is not None)
+        except StaffMember.DoesNotExist:
+            pass
+        return has_staff_member
 
 class Client(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)

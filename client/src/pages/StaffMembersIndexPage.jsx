@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function VendorsPage(){
+export default function StaffMembersIndexPage(){
 
     const usuarios = [
         {
@@ -24,6 +24,7 @@ export default function VendorsPage(){
       ];
 
     return (
+        
         <div className="bg-gray-50 mt-40 mx-8 rounded p-2" style={{ padding: '2rem' }}>
             <div className=" h-10 flex justify-between items-center mb-10">
                 <h2 className="text-gray-900 font-bold">Tabla de empleados</h2>
