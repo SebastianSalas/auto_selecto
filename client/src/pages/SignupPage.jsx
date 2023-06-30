@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 
@@ -6,7 +6,7 @@ export default function SignupPage() {
   let { createUser } = useContext(AuthContext);
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-gray-100">
+    <main className="flex items-center justify-center min-h-screen">
       <div className="max-w-md w-full px-6 py-8 bg-white shadow-md my-20">
         <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
           Registrarse
