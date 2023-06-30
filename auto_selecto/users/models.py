@@ -72,15 +72,16 @@ class Client(models.Model):
   
 class StaffMember(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
-  office = models.OneToOneField(Office, on_delete=models.CASCADE)
+  office = models.ForeignKey(Office, on_delete=models.CASCADE)
   name = models.CharField(max_length=60)
   last_name = models.CharField(max_length=60)
   email = models.CharField(max_length=100)
   telephone = models.CharField(max_length=10)
   cedula = models.CharField(max_length=100)
+  active = models.BooleanField(default=True)
   created_at = models.DateTimeField(auto_now_add=True)
-  company_position = models.OneToOneField(CompanyPosition, on_delete=models.CASCADE)
+  company_position = models.ForeignKey(CompanyPosition, on_delete=models.CASCADE)
 
 
   def __str__(self):
-    return f"id: {self.id}, user_id: {self.user_id}, office_id: {self.office_id}, name: {self.name}, last_name: {self.last_name}, email: {self.email}, telephone: {self.telephone}, cedula: {self.cedula}, company_position_id: {self.company_position_id}, created_at: {self.created_at}"
+    return f"id: {self.id}, user_id: {self.user_id}, office_id: {self.office_id}, name: {self.name}, last_name: {self.last_name}, email: {self.email}, telephone: {self.telephone}, cedula: {self.cedula}, company_position_id: {self.company_position_id}, created_at: {self.created_at}, active: {self.active}"

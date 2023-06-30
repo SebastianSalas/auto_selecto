@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+import { useContext } from "react";
 
 export default function StaffMembersIndexPage(){
+
+    let { staffMembers } = useContext(AuthContext);
+
 
     const usuarios = [
         {
@@ -33,55 +38,54 @@ export default function StaffMembersIndexPage(){
             <table className=" min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
-                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center">
                         Nombre
                     </th>
-                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center">
                         Cédula
                     </th>
-                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center">
                         Cargo
                     </th>
-                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center">
                         Fecha de Creación
                     </th>
-                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center">
                         Estado
                     </th>
-                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider text-center">
                         Acciones
                     </th>
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                    {usuarios.map((usuario) => (
-                    <tr key={usuario.id}>
-                        <td className="px-6 py-4 ">
+                    {staffMembers.map((staff) => (
+                    <tr key={staff.id}>
+                        <td className="px-6 py-4 text-center">
                             <p className=" w-full text-sm leading-5 font-medium text-gray-900">
-                                    {usuario.nombre}
+                                    {staff.name}
                             </p> 
                         </td>
-                        <td className="px-6 py-4 whitespace-no-wrap">
+                        <td className="px-6 py-4 whitespace-no-wrap text-center">
                             <p className="text-sm leading-5 text-gray-900">
-                                {usuario.cedula}
+                                {staff.cedula}
                             </p>
                         </td>
-                        <td className="px-6 py-4 whitespace-no-wrap">
+                        <td className="px-6 py-4 whitespace-no-wrap text-center">
                             <p className="text-sm leading-5 text-gray-900">
-                                {usuario.cargo}
+                                {staff.company_position_name}
                             </p>
                         </td>
-                        <td className="px-6 py-4 whitespace-no-wrap">
+                        <td className="px-6 py-4 whitespace-no-wrap text-center">
                             <p className="text-sm leading-5 text-gray-900">
-                                {usuario.fechaCreacion}
+                                {staff.created_at}
                             </p>
                         </td>
-                        <td className="px-6 py-4 whitespace-no-wrap">
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                {usuario.estado ? "Activo" : "Inactivo"}
-                            </span>
+                        <td className="px-6 py-4 whitespace-no-wrap text-center">
+                            {staff.active ? <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Activo </span> : <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"> Inactivo </span> }   
+                            
                         </td>
-                        <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium">
+                        <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium ">
                             <a
                                 href="#"
                                 className="text-indigo-600 hover:text-indigo-900"
