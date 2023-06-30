@@ -40,7 +40,7 @@ export default function SignupPage() {
               type="text"
               id="name"
               className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
-              placeholder="Ingresa tu email"
+              placeholder="Escribe tu nombre"
               required
             />
           </div>
@@ -56,7 +56,7 @@ export default function SignupPage() {
               type="text"
               id="last_name"
               className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
-              placeholder="Ingresa tu email"
+              placeholder="Escribe tu apellido"
               required
             />
           </div>
@@ -72,7 +72,7 @@ export default function SignupPage() {
               type="number"
               id="cedula"
               className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
-              placeholder="Ingresa tu email"
+              placeholder="Digita tu cedula"
               min="1"
               required
             />
@@ -106,7 +106,7 @@ export default function SignupPage() {
               type="password"
               id="password"
               className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
-              placeholder="Ingresa tu email"
+              placeholder="Contraseña"
               min="1"
               required
             />
@@ -123,7 +123,7 @@ export default function SignupPage() {
               type="password"
               id="re_password"
               className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
-              placeholder="Ingresa tu email"
+              placeholder="Confirma la contraseña"
               min="1"
               required
             />

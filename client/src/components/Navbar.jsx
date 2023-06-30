@@ -2,6 +2,7 @@ import { useEffect, useContext } from "react";
 import navbarHideUserProfile from "../scripts/navbar_hide_user_profile";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import logo from "../assets/images/logo.png";
 
 const Navbar = ({ logout, isAuthenticated }) => {
   useEffect(() => {
@@ -9,7 +10,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
   }, []);
 
   let { user, logoutUser } = useContext(AuthContext);
-  console.log(user)
+  console.log(user);
 
   return (
     <nav className="sm:px-6 lg:px-8 py-6 px-10 flex items-center fixed top-0 w-full justify-between z-50">
@@ -61,25 +62,25 @@ const Navbar = ({ logout, isAuthenticated }) => {
           <div className="flex flex-shrink-0 items-center">
             <img
               className="block h-10 w-auto lg:hidden"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+              src={logo}
               alt="Your Company"
             />
-            <img
-              className="hidden h-10 w-auto lg:block"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-              alt="Your Company"
-            />
+            <Link to="/">
+              <img
+                className="hidden h-10 w-auto lg:block"
+                src={logo}
+                alt="Your Company"
+                style={{ height: "6.5rem" }}
+              />
+            </Link>
           </div>
 
-          <div className="hidden sm:ml-6 sm:block">
+          <div
+            className="hidden sm:ml-6 sm:block text-center pt-4 pb-4"
+            style={{ display: "flex", alignItems: "center" }}
+          >
             <div className="flex space-x-4">
               {/* Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" */}
-              <Link
-                className="text-white hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                to="/"
-              >
-                Inicio
-              </Link>
               <a
                 href="#"
                 className="text-white hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"

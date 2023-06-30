@@ -85,7 +85,7 @@ export default function StaffMembersIndexPage(){
                             {staff.active ? <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Activo </span> : <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"> Inactivo </span> }   
                             
                         </td>
-                        <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium ">
+                        <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-center">
                             <a
                                 href="#"
                                 className="text-indigo-600 hover:text-indigo-900"

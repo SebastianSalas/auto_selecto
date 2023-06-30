@@ -44,14 +44,20 @@ export const AuthProvider = ({ children }) => {
     let data = await response.data;
     console.log("data: ", data);
     if (response.status === 200) {
-      setAuthTokens(data);
-      setUser(jwt_decode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-      navigate("/");
-      toast.success("Has iniciado sesión");
+      if (jwt_decode(data.access).active === false) {
+        toast.error("No tienes acceso a tu perfil");
+        logoutUser();
+      } else {
+        setAuthTokens(data);
+        setUser(jwt_decode(data.access));
+        localStorage.setItem("authTokens", JSON.stringify(data));
+        navigate("/");
+        toast.success("Has iniciado sesión");
+      }
     } else {
       alert("Something went wrong!");
     }
+
   };
 
   let logoutUser = () => {

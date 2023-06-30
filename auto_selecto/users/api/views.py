@@ -21,9 +21,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     if user.has_related_object():
       token['staff_member_id'] = user.staffmember.id
       token['company_position_id'] = user.staffmember.company_position.id
+      token['active'] = user.staffmember.active
     else:
       token['staff_member_id'] = None
       token['company_position_id'] = None
+      token['active'] = None
 
     # ...
 
