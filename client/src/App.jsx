@@ -8,6 +8,9 @@ import SignupPage from "./pages/SignupPage";
 import AuthContext from "./context/AuthContext";
 import StaffMembersIndexPage from "./pages/StaffMembersIndexPage";
 import { useContext } from "react";
+import ShowCarsPage from "./pages/ShowCarsPage";
+import AddStaffMember from "./pages/AddStaffMember";
+import EditStaffMember from "./pages/EditStaffMember";
 
 export default function App() {
   let { user } = useContext(AuthContext);
@@ -20,6 +23,9 @@ export default function App() {
       <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />} />
       <Route path="/sign_up" element={!user ? <SignupPage /> : <Navigate to="/" />} />
       <Route path="/staff_members" element={<StaffMembersIndexPage/>}/>
+      <Route path="/show_cars" element={<ShowCarsPage/>}/>
+      <Route path="/add_staff" element={<AddStaffMember/>}/>
+      <Route path="/edit_staff" element={<EditStaffMember/>}/>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
