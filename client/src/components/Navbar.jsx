@@ -10,7 +10,6 @@ const Navbar = ({ logout, isAuthenticated }) => {
   }, []);
 
   let { user, logoutUser } = useContext(AuthContext);
-  console.log(user);
 
   return (
     <nav className="sm:px-6 lg:px-8 py-6 px-10 flex items-center fixed top-0 w-full justify-between z-50">

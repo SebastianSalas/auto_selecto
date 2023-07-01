@@ -164,6 +164,7 @@ export const AuthProvider = ({ children }) => {
       alert("Something went wrong!");
     }
   };
+  
 
   // -------------- LIST MODELS -----------------
   useEffect(() => {
@@ -177,8 +178,17 @@ export const AuthProvider = ({ children }) => {
         console.error(error);
       }
     };
-
+  
+    // Llama a la función para obtener los staffMembers inmediatamente
     fetchStaffMembers();
+  
+    // Establece el intervalo para actualizar los staffMembers cada 5 segundos
+    const interval = setInterval(() => {
+      fetchStaffMembers();
+    }, 3000); // 5000 milisegundos = 5 segundos
+  
+    // Limpia el intervalo cuando el componente se desmonta
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {

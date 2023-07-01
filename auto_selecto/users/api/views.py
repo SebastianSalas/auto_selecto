@@ -61,3 +61,10 @@ class StaffMemberCreateView(generics.CreateAPIView):
 class StaffMemberListView(generics.ListAPIView):
   queryset = StaffMember.objects.all()
   serializer_class = StaffMemberSerializer
+
+class StaffMemberDetailView(generics.RetrieveUpdateAPIView):
+    serializer_class = StaffMemberSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs.get('pk')
+        return StaffMember.objects.filter(pk=pk)

@@ -25,7 +25,7 @@ export default function App() {
       <Route path="/staff_members" element={<StaffMembersIndexPage/>}/>
       <Route path="/show_cars" element={<ShowCarsPage/>}/>
       <Route path="/add_staff" element={<AddStaffMember/>}/>
-      <Route path="/edit_staff" element={<EditStaffMember/>}/>
+      <Route path="/staff_member/:id/edit" element={<EditStaffMember />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

@@ -72,6 +72,9 @@ class StaffMemberSerializer(serializers.ModelSerializer):
         
     def get_city_name(self, obj):
         return obj.city.name if obj.city else None
+    
+    def get_active(self, obj):
+        return bool(obj.active)
 
     
     @transaction.atomic
