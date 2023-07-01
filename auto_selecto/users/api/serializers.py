@@ -55,9 +55,10 @@ class ClientSerializer(serializers.ModelSerializer):
 class StaffMemberSerializer(serializers.ModelSerializer):
     company_position_name = serializers.SerializerMethodField()
     created_at = serializers.SerializerMethodField()
+    city_name = serializers.SerializerMethodField()
     class Meta:
         model = StaffMember
-        fields = ['id', 'name', 'last_name', 'email', 'telephone', 'cedula', 'company_position', 'company_position_name', 'office', 'created_at', 'active', 'city'] 
+        fields = ['id', 'name', 'last_name', 'email', 'telephone', 'cedula', 'company_position', 'company_position_name', 'office', 'created_at', 'active', 'city', 'city_name'] 
 
     def get_company_position_name(self, obj):
         return obj.company_position.name if obj.company_position else None
@@ -68,6 +69,9 @@ class StaffMemberSerializer(serializers.ModelSerializer):
             return formatted_date
         else:
             return None
+        
+    def get_city_name(self, obj):
+        return obj.city.name if obj.city else None
 
     
     @transaction.atomic

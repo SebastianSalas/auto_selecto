@@ -22,6 +22,9 @@ export const AuthProvider = ({ children }) => {
   );
 
   const [staffMembers, setStaffMembers] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [companyPositions, setCompanyPositions] = useState([]);
+  const [offices, setOffices] = useState([]);
 
   let [loading, setLoading] = useState(true);
 
@@ -57,7 +60,6 @@ export const AuthProvider = ({ children }) => {
     } else {
       alert("Something went wrong!");
     }
-
   };
 
   let logoutUser = () => {
@@ -132,6 +134,7 @@ export const AuthProvider = ({ children }) => {
     );
   };
 
+  // -------------- LIST MODELS -----------------
   useEffect(() => {
     const fetchStaffMembers = async () => {
       try {
@@ -145,6 +148,47 @@ export const AuthProvider = ({ children }) => {
     };
 
     fetchStaffMembers();
+  }, []);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/cities/");
+        setCities(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCities();
+  }, []);
+
+  useEffect(() => {
+    const fetchCompanyPositions = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/company_positions/"
+        );
+        setCompanyPositions(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCompanyPositions();
+  }, []);
+
+  useEffect(() => {
+    const fetchOffices = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/offices/");
+        setOffices(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchOffices();
   }, []);
 
   let updateToken = async () => {
@@ -174,6 +218,9 @@ export const AuthProvider = ({ children }) => {
     logoutUser: logoutUser,
     createUser: createUser,
     staffMembers: staffMembers,
+    cities: cities,
+    companyPositions: companyPositions,
+    offices: offices,
   };
 
   useEffect(() => {

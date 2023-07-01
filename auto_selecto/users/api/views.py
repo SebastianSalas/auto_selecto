@@ -22,10 +22,12 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
       token['staff_member_id'] = user.staffmember.id
       token['company_position_id'] = user.staffmember.company_position.id
       token['active'] = user.staffmember.active
+      token['city_id'] = user.city.id
     else:
       token['staff_member_id'] = None
       token['company_position_id'] = None
       token['active'] = None
+      token['city_id'] = None
 
     # ...
 

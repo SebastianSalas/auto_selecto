@@ -32,8 +32,8 @@ class Office(models.Model):
   
   @classmethod
   @transaction.atomic
-  def create_office(cls, name, address, telephone, nit):
-    office = cls(name=name, address=address, telephone=telephone, nit=nit)
+  def create_office(cls, name, address, telephone, nit, city):
+    office = cls(name=name, address=address, telephone=telephone, nit=nit, city=city)
     office.save()
     return office
   
