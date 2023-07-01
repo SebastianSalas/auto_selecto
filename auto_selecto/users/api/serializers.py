@@ -16,7 +16,8 @@ class UserSerializer(serializers.ModelSerializer):
                   'name', 
                   'last_name', 
                   'cedula', 
-                  'password']
+                  'password',
+                  'city_id']
         
         extra_kwargs = {
             'password': {'write_only': True}
@@ -56,7 +57,7 @@ class StaffMemberSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
     class Meta:
         model = StaffMember
-        fields = ['id', 'name', 'last_name', 'email', 'telephone', 'cedula', 'company_position', 'company_position_name', 'office', 'created_at', 'active']
+        fields = ['id', 'name', 'last_name', 'email', 'telephone', 'cedula', 'company_position', 'company_position_name', 'office', 'created_at', 'active', 'city'] 
 
     def get_company_position_name(self, obj):
         return obj.company_position.name if obj.company_position else None

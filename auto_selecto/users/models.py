@@ -3,23 +3,31 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-from concesionariaApp.models import Office, CompanyPosition
+from concesionariaApp.models import Office, CompanyPosition, City
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, name, last_name, cedula, password):
+    def create_user(self, email, name, last_name, cedula, password, city=None):
         if not email:
             raise ValueError('Debe tener un email')
         if not password:
-           raise ValueError('Debe tener una contraseña')
+            raise ValueError('Debe tener una contraseña')
         email = self.normalize_email(email)
+        
         user = self.model(email=email, name=name, last_name=last_name, cedula=cedula)
         user.set_password(password)
+        
+        if city:
+            try:
+                city = City.objects.get(id=city)
+                user.city = city
+            except City.DoesNotExist:
+                raise ValueError('La ciudad especificada no existe')
+        
         user.save()
         return user
 
     def create_superuser(self, email, name, last_name, cedula, password):
         user = self.create_user(email, name, last_name, cedula, password)
-        user.is_staff = True
         user.is_superuser = True
         user.save()
         return user
@@ -30,6 +38,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=60)
     email = models.EmailField(unique=True, blank=False)
     cedula = models.CharField(max_length=100)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     objects = UserManager()
@@ -65,6 +74,7 @@ class Client(models.Model):
   email = models.CharField(max_length=100)
   telephone = models.CharField(max_length=10)
   cedula = models.CharField(max_length=100)
+  city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True) #campo innecesario
   created_at = models.DateTimeField(auto_now_add=True)
 
   def __str__(self):
@@ -80,8 +90,9 @@ class StaffMember(models.Model):
   cedula = models.CharField(max_length=100)
   active = models.BooleanField(default=True)
   created_at = models.DateTimeField(auto_now_add=True)
+  city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
   company_position = models.ForeignKey(CompanyPosition, on_delete=models.CASCADE)
 
 
   def __str__(self):
-    return f"id: {self.id}, user_id: {self.user_id}, office_id: {self.office_id}, name: {self.name}, last_name: {self.last_name}, email: {self.email}, telephone: {self.telephone}, cedula: {self.cedula}, company_position_id: {self.company_position_id}, created_at: {self.created_at}, active: {self.active}"
+    return f"id: {self.id}, user_id: {self.user_id}, office_id: {self.office_id}, name: {self.name}, last_name: {self.last_name}, email: {self.email}, telephone: {self.telephone}, cedula: {self.cedula}, company_position_id: {self.company_position_id}, created_at: {self.created_at}, active: {self.active}, city_id: {self.city_id}"
