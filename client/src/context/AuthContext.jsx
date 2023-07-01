@@ -25,11 +25,13 @@ export const AuthProvider = ({ children }) => {
   const [cities, setCities] = useState([]);
   const [companyPositions, setCompanyPositions] = useState([]);
   const [offices, setOffices] = useState([]);
+  
 
   let [loading, setLoading] = useState(true);
 
   let navigate = useNavigate();
 
+  // -------------- AUTH LOGIC ---------------
   let loginUser = async (e) => {
     e.preventDefault();
     const response = await axios.post(
@@ -70,6 +72,8 @@ export const AuthProvider = ({ children }) => {
 
     toast.warning("Se ha cerrado la sesión");
   };
+
+  // ------------ SEND REQUEST TO CREATE INSTANCES ------------
 
   let createUser = async (e) => {
     e.preventDefault();
@@ -125,6 +129,10 @@ export const AuthProvider = ({ children }) => {
         cedula: e.target.cedula.value,
         telephone: e.target.telephone.value,
         password: e.target.password.value,
+        company_position: e.target.company_position.value,
+        office: e.target.office.value,
+        city: e.target.city.value,
+        active: e.target.active.value
       },
       {
         headers: {
@@ -132,6 +140,29 @@ export const AuthProvider = ({ children }) => {
         },
       }
     );
+    let data = await response.data;
+    console.log("data: ", data);
+    if (response.status === 201) {
+      let response = await fetch("http://localhost:8000/api/token/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: e.target.email.value,
+          password: e.target.password.value,
+        }),
+      });
+      let data = await response.json();
+      console.log("data: ", data);
+      setAuthTokens(data);
+      setUser(jwt_decode(data.access));
+      localStorage.setItem("authTokens", JSON.stringify(data));
+      navigate("/staff_members");
+      toast.success("¡La creación del empleado ha sido exitosa!");
+    } else {
+      alert("Something went wrong!");
+    }
   };
 
   // -------------- LIST MODELS -----------------
@@ -191,6 +222,8 @@ export const AuthProvider = ({ children }) => {
     fetchOffices();
   }, []);
 
+  // ---------------- TOKENS MANAGE ------------------
+
   let updateToken = async () => {
     let response = await fetch("http://localhost:8000/api/token/refresh/", {
       method: "POST",
@@ -212,17 +245,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  let contextData = {
-    user: user,
-    loginUser: loginUser,
-    logoutUser: logoutUser,
-    createUser: createUser,
-    staffMembers: staffMembers,
-    cities: cities,
-    companyPositions: companyPositions,
-    offices: offices,
-  };
-
   useEffect(() => {
     let fourMinutes = 1000 * 60 * 4;
     let interval = setInterval(() => {
@@ -232,6 +254,20 @@ export const AuthProvider = ({ children }) => {
     }, fourMinutes);
     return () => clearInterval(interval);
   }, [authTokens, loading]);
+
+  // ----------------- CONTEXT DATA ------------------
+
+  let contextData = {
+    user: user,
+    loginUser: loginUser,
+    logoutUser: logoutUser,
+    createUser: createUser,
+    createStaffMember: createStaffMember,
+    staffMembers: staffMembers,
+    cities: cities,
+    companyPositions: companyPositions,
+    offices: offices,
+  };
 
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>

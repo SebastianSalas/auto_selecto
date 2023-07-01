@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import AuthContext from "../context/AuthContext";
 
 export default function AddStaffMember() {
-  let { cities, companyPositions, offices } = useContext(AuthContext);
+  let { cities, companyPositions, offices, createStaffMember } = useContext(AuthContext);
 
   const [selectedOptionPosition, setSelectedOptionPosition] = useState("");
   const [selectedOptionOfficie, setSelectedOptionOfficie] = useState("");
@@ -42,7 +42,7 @@ export default function AddStaffMember() {
         <h2 className="text-black text-center font-bold text-2xl mb-5">
           Agregar Empleado
         </h2>
-        <form>
+        <form onSubmit={createStaffMember}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -68,7 +68,7 @@ export default function AddStaffMember() {
             </label>
             <input
               name="name"
-              type="email"
+              type="text"
               id="name"
               className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-black"
               placeholder="Ingresa tu nombre"

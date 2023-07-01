@@ -18,16 +18,20 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     token['last_name'] = user.last_name
     token['email'] = user.email
     token['cedula'] = user.cedula
-    if user.has_related_object():
+    if user.has_staff_member_object():
       token['staff_member_id'] = user.staffmember.id
       token['company_position_id'] = user.staffmember.company_position.id
       token['active'] = user.staffmember.active
-      token['city_id'] = user.city.id
     else:
       token['staff_member_id'] = None
       token['company_position_id'] = None
       token['active'] = None
+      
+    if user.has_city_object():
+      token['city_id'] = user.city.id
+    else:
       token['city_id'] = None
+
 
     # ...
 

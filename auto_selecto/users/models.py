@@ -59,13 +59,21 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_staff_member_id(self):
        return self.staffmember.id
     
-    def has_related_object(self):
+    def has_staff_member_object(self):
         has_staff_member = False
         try:
             has_staff_member = (self.staffmember is not None)
         except StaffMember.DoesNotExist:
             pass
         return has_staff_member
+    
+    def has_city_object(self):
+        has_city = False
+        try:
+            has_city = (self.city is not None)
+        except City.DoesNotExist:
+            pass
+        return has_city
 
 class Client(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
