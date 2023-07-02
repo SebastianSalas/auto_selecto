@@ -11,6 +11,7 @@ import { useContext } from "react";
 import ShowCarsPage from "./pages/ShowCarsPage";
 import AddStaffMember from "./pages/AddStaffMember";
 import EditStaffMember from "./pages/EditStaffMember";
+import CarDetail from "./pages/CarDetail";
 
 export default function App() {
   let { user } = useContext(AuthContext);
@@ -26,6 +27,8 @@ export default function App() {
       <Route path="/show_cars" element={<ShowCarsPage/>}/>
       <Route path="/add_staff" element={<AddStaffMember/>}/>
       <Route path="/staff_member/:id/edit" element={<EditStaffMember />} />
+      <Route path="/edit_staff" element={<EditStaffMember/>}/>
+      <Route path="/car/:id" element={<CarDetail/>} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
