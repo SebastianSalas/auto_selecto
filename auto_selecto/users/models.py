@@ -1,9 +1,6 @@
 from django.db import models
-from django.dispatch import receiver
-from django.db.models.signals import post_save
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-from concesionariaApp.models import Office, CompanyPosition, City
 
 class UserManager(BaseUserManager):
     def create_user(self, email, name, last_name, cedula, password, city=None):
@@ -15,7 +12,7 @@ class UserManager(BaseUserManager):
         
         user = self.model(email=email, name=name, last_name=last_name, cedula=cedula)
         user.set_password(password)
-        
+        from concesionariaApp.models import City
         if city:
             try:
                 city = City.objects.get(id=city)
@@ -38,7 +35,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=60)
     email = models.EmailField(unique=True, blank=False)
     cedula = models.CharField(max_length=100)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
+    city = models.ForeignKey('concesionariaApp.City', on_delete=models.CASCADE, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     objects = UserManager()
@@ -71,7 +68,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         has_city = False
         try:
             has_city = (self.city is not None)
-        except City.DoesNotExist:
+        except 'concesionariaApp.City'.DoesNotExist:
             pass
         return has_city
 
@@ -82,7 +79,7 @@ class Client(models.Model):
   email = models.CharField(max_length=100)
   telephone = models.CharField(max_length=10)
   cedula = models.CharField(max_length=100)
-  city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True) #campo innecesario
+  city = models.ForeignKey('concesionariaApp.City', on_delete=models.CASCADE, null=True, blank=True) #campo innecesario
   created_at = models.DateTimeField(auto_now_add=True)
 
   def __str__(self):
@@ -90,7 +87,7 @@ class Client(models.Model):
   
 class StaffMember(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
-  office = models.ForeignKey(Office, on_delete=models.CASCADE)
+  office = models.ForeignKey('concesionariaApp.Office', on_delete=models.CASCADE)
   name = models.CharField(max_length=60)
   last_name = models.CharField(max_length=60)
   email = models.CharField(max_length=100)
@@ -98,8 +95,8 @@ class StaffMember(models.Model):
   cedula = models.CharField(max_length=100)
   active = models.BooleanField(default=True)
   created_at = models.DateTimeField(auto_now_add=True)
-  city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
-  company_position = models.ForeignKey(CompanyPosition, on_delete=models.CASCADE)
+  city = models.ForeignKey('concesionariaApp.City', on_delete=models.CASCADE, null=True, blank=True)
+  company_position = models.ForeignKey('concesionariaApp.CompanyPosition', on_delete=models.CASCADE)
 
 
   def __str__(self):

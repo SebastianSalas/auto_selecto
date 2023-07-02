@@ -54,12 +54,13 @@ class CompanyPosition(models.Model):
     company_position.save()
     return company_position
   
+
 class Vehicle(models.Model):
     name = models.CharField(max_length=60)
     brand = models.CharField(max_length=60)
-    type = models.CharField(max_length=40)
+    type = models.CharField(max_length=20)
     year = models.IntegerField()
-    value = models.DecimalField(max_digits=11)
+    value = models.DecimalField(max_digits=11, decimal_places=2)
     hp = models.FloatField()
     torque = models.FloatField()
     description = models.CharField(max_length=300)
