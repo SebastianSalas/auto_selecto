@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 from django.db import transaction
+from users.models import Client, StaffMember
+
 
 
 class City(models.Model):
@@ -51,4 +53,25 @@ class CompanyPosition(models.Model):
     company_position = cls(name=name)
     company_position.save()
     return company_position
+  
+class Vehicle(models.Model):
+    name = models.CharField(max_length=60)
+    brand = models.CharField(max_length=60)
+    type = models.CharField(max_length=40)
+    year = models.IntegerField()
+    value = models.DecimalField(max_digits=11)
+    hp = models.FloatField()
+    torque = models.FloatField()
+    description = models.CharField(max_length=300)
+    image = models.ImageField()
+
+
+class VehicleQuotation(models.Model):
+  client = models.ForeignKey(Client, on_delete=models.CASCADE)
+  vendor = models.ForeignKey(StaffMember, on_delete=models.CASCADE)
+  city = models.ForeignKey(City, on_delete=models.CASCADE)
+  office = models.ForeignKey(Office, on_delete=models.CASCADE)
+  vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+  created_at = models.DateTimeField(auto_now_add=True)
+  closed_at = models.DateTimeField(blank=True, null=True)
   
