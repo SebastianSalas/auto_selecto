@@ -33,7 +33,7 @@ export default function StaffMembersIndexPage(){
         <div className="bg-gray-50 mt-40 mx-8 rounded p-2" style={{ padding: '2rem' }}>
             <div className=" h-10 flex justify-between items-center mb-10">
                 <h2 className="text-gray-900 font-bold">Tabla de empleados</h2>
-                <Link to='#' className="bg-green-600 rounded p-1">Agregar empleado</Link>
+                <Link to='/add_staff' className="bg-green-600 rounded p-1">Agregar empleado</Link>
             </div>
             <table className=" min-w-full divide-y divide-gray-200">
                 <thead>
@@ -86,12 +86,13 @@ export default function StaffMembersIndexPage(){
                             
                         </td>
                         <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium ">
-                            <a
+                            <Link
+                                to='/edit_staff'
                                 href="#"
                                 className="text-indigo-600 hover:text-indigo-900"
                             >
                                 Editar
-                            </a>
+                            </Link>
                         </td>
                     </tr>
                     ))}
