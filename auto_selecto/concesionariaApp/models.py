@@ -54,6 +54,8 @@ class CompanyPosition(models.Model):
     company_position.save()
     return company_position
   
+def vehicle_image_path(instance, filename):
+    return f'vehicles/{filename}'
 
 class Vehicle(models.Model):
     name = models.CharField(max_length=60)
@@ -64,7 +66,7 @@ class Vehicle(models.Model):
     hp = models.FloatField()
     torque = models.FloatField()
     description = models.CharField(max_length=300)
-    image = models.ImageField()
+    image = models.ImageField(upload_to=vehicle_image_path)
 
 
 class VehicleQuotation(models.Model):
