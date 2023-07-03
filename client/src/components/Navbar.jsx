@@ -145,7 +145,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
           ) : null}
           {user && staffMember && staffMember.company_position_name === "Vendedor" ? (
             <Link
-              to="/report"
+              to="/vehicle_quotations"
               className="text-white hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium mr-5"
             >
               Cotizaciones

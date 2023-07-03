@@ -2,7 +2,7 @@ from .models import Office, CompanyPosition, City, Vehicle, VehicleQuotation
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 from django.db import transaction
-
+from babel.dates import format_date
 
 class OfficeSerializer(ModelSerializer):
   id = serializers.IntegerField(read_only=True)
@@ -68,30 +68,53 @@ class VehicleSerializer(serializers.ModelSerializer):
     vehicle = Vehicle(**validated_data)
     vehicle.save()
     return vehicle
-
-  def update(self, instance, validated_data):
-    instance.name = validated_data.get('name', instance.name)
-    instance.brand = validated_data.get('brand', instance.brand)
-    instance.type = validated_data.get('type', instance.type)
-    instance.year = validated_data.get('year', instance.year)
-    instance.value = validated_data.get('value', instance.value)
-    instance.hp = validated_data.get('hp', instance.hp)
-    instance.torque = validated_data.get('torque', instance.torque)
-    instance.description = validated_data.get('description', instance.description)
-    instance.image = validated_data.get('image', instance.image)
-    instance.save()
-    return instance
     
 class VehicleQuotationSerializer(serializers.ModelSerializer):
+  client_name = serializers.SerializerMethodField()
+  client_last_name = serializers.SerializerMethodField()
+  office_name = serializers.SerializerMethodField()
+  city_name = serializers.SerializerMethodField()
+  created_at = serializers.SerializerMethodField()
+
+
+
   class Meta:
     model = VehicleQuotation
-    fields = '__all__'
+    fields = ['id',
+              'city',
+              'client',
+              'vendor',
+              'office',
+              'vehicle',
+              'sold',
+              'closed_at',
+              'created_at',
+              'client_name',
+              'client_last_name',
+              'office_name',
+              'city_name']
 
+  def get_client_name(self, obj):
+    return obj.client.name if obj.client else None
+  
+  def get_client_last_name(self, obj):
+    return obj.client.last_name if obj.client else None
+  
+  def get_office_name(self, obj):
+    return obj.office.name if obj.office else None
+  
+  def get_city_name(self, obj):
+    return obj.city.name if obj.city else None
+  
+  def get_created_at(self, obj):
+        if obj.created_at:
+            formatted_date = format_date(obj.created_at, format='dd MMMM yyyy', locale='es')
+            return formatted_date
+        else:
+            return None
+        
+  @transaction.atomic
   def create(self, validated_data):
     vehicle_quotation = VehicleQuotation(**validated_data)
     vehicle_quotation.save()
     return vehicle_quotation
-
-  def update(self, instance, validated_data):
-    instance.closed_at = validated_data.get('closed_at', instance.type)
-    return instance

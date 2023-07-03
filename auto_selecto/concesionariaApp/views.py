@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.db.models import Q
+from django.db.models import Q, OuterRef, Subquery
 from rest_framework import generics
 from .models import City, CompanyPosition, Office, Vehicle, VehicleQuotation
 from .serializers import CitySerializer, CompanyPositionSerializer, OfficeSerializer, VehicleSerializer, VehicleQuotationSerializer
@@ -46,12 +46,23 @@ class VehicleSearchView(generics.ListAPIView):
       return queryset
 
 class VehicleQuotationListCreateView(generics.ListCreateAPIView):
-    queryset = VehicleQuotation.objects.all()
     serializer_class = VehicleQuotationSerializer
 
+    def get_queryset(self):
+        vehicle_subquery = VehicleQuotation.objects.filter(vehicle_id=OuterRef('id'), vendor=None)
+        queryset = VehicleQuotation.objects.annotate(vehicle_vendor_null=Subquery(vehicle_subquery.values('id')))
+        return queryset.filter(id__in=queryset.values('vehicle_vendor_null'))
+    
 class VehicleQuotationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = VehicleQuotation.objects.all()
     serializer_class = VehicleQuotationSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs.get('pk')
+        return VehicleQuotation.objects.filter(pk=pk)
 
 class VehicleQuotationCreateView(generics.CreateAPIView):
    serializer_class = VehicleQuotationSerializer
+
+   def get_queryset(self):
+    pk = self.kwargs.get('pk')
+    return Vehicle.objects.filter(pk=pk)

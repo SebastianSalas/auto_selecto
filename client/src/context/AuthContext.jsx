@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
   const [cities, setCities] = useState([]);
   const [companyPositions, setCompanyPositions] = useState([]);
   const [offices, setOffices] = useState([]);
+  const [vehicleQuotations, setVehicleQuotations] = useState([]);
 
 
   let [loading, setLoading] = useState(true);
@@ -164,7 +165,7 @@ export const AuthProvider = ({ children }) => {
       alert("Something went wrong!");
     }
   };
-  
+
 
   // -------------- LIST MODELS -----------------
   useEffect(() => {
@@ -223,6 +224,21 @@ export const AuthProvider = ({ children }) => {
     fetchOffices();
   }, []);
 
+  useEffect(() => {
+    const fetchVehicleQuotations = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/vehicle_quotations"
+        );
+        setVehicleQuotations(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchVehicleQuotations();
+  }, []);
+
   // ---------------- TOKENS MANAGE ------------------
 
   let updateToken = async () => {
@@ -268,6 +284,7 @@ export const AuthProvider = ({ children }) => {
     cities: cities,
     companyPositions: companyPositions,
     offices: offices,
+    vehicleQuotations: vehicleQuotations,
   };
 
   return (
