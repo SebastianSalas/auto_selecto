@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <AuthProvider>
-      <ToastContainer />
+      <ToastContainer autoClose={1000}/>
       <Navbar />
       <App />
     </AuthProvider>

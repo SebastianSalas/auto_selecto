@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 
@@ -6,7 +6,7 @@ export default function SignupPage() {
   let { createUser } = useContext(AuthContext);
 
   return (
-    <main className="flex items-center justify-center min-h-screen bg-gray-100">
+    <main className="flex items-center justify-center min-h-screen">
       <div className="max-w-md w-full px-6 py-8 bg-white shadow-md my-20">
         <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
           Registrarse
@@ -40,7 +40,7 @@ export default function SignupPage() {
               type="text"
               id="name"
               className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
-              placeholder="Ingresa tu email"
+              placeholder="Escribe tu nombre"
               required
             />
           </div>
@@ -56,7 +56,7 @@ export default function SignupPage() {
               type="text"
               id="last_name"
               className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
-              placeholder="Ingresa tu email"
+              placeholder="Escribe tu apellido"
               required
             />
           </div>
@@ -72,7 +72,24 @@ export default function SignupPage() {
               type="number"
               id="cedula"
               className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
-              placeholder="Ingresa tu email"
+              placeholder="Digita tu cedula"
+              min="1"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label
+               htmlFor="telephone"
+              className="block text-gray-700 font-bold mb-2"
+            >
+              Teléfono
+            </label>
+            <input
+              name="telephone"
+              type="number"
+              id="telephone"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
+              placeholder="Ingresa tu teléfono"
               min="1"
               required
             />
@@ -89,7 +106,7 @@ export default function SignupPage() {
               type="password"
               id="password"
               className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
-              placeholder="Ingresa tu email"
+              placeholder="Contraseña"
               min="1"
               required
             />
@@ -106,7 +123,7 @@ export default function SignupPage() {
               type="password"
               id="re_password"
               className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-gray-700"
-              placeholder="Ingresa tu email"
+              placeholder="Confirma la contraseña"
               min="1"
               required
             />
