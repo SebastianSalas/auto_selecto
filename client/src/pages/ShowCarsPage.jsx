@@ -79,7 +79,7 @@ export default function ShowCarsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {cars.map((car) => (
-          <div key={car.id} className="bg-white shadow rounded p-4">
+          <div key={car.id} className="bg-white border-4 shadow rounded-xl p-6">
             <img
               src={car.image}
               alt={`${car.brand} ${car.name}`}

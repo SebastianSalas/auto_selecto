@@ -15,6 +15,7 @@ import AddCar from "./pages/AddCarPage"
 import CarDetail from "./pages/CarDetail";
 import ReportPage from "./pages/ReportPage";
 import VehicleQuotationsIndexPage from "./pages/VehicleQuotationsIndexPage";
+import InfoClientPage from "./pages/InfoClientePage";
 
 export default function App() {
   let { user } = useContext(AuthContext);
@@ -34,6 +35,7 @@ export default function App() {
       <Route path="/staff_member/:id/edit" element={<EditStaffMember />} />
       <Route path="/car/:id/show" element={<CarDetail/>} />
       <Route path="/report" element={<ReportPage/>}/>
+      <Route path="/info_client" element={<InfoClientPage/>}/>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
