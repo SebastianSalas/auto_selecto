@@ -18,6 +18,14 @@ class OfficeListCreateView(generics.ListCreateAPIView):
 class VehicleCreateView(generics.CreateAPIView):
   serializer_class = VehicleSerializer
 
+
 class VehicleListCreateView(generics.ListCreateAPIView):
     queryset = Vehicle.objects.all()
     serializer_class = VehicleSerializer
+
+class VehicleDetailView(generics.RetrieveUpdateAPIView):
+    serializer_class = VehicleSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs.get('pk')
+        return Vehicle.objects.filter(pk=pk)

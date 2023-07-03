@@ -10,4 +10,5 @@ urlpatterns = [
     path('offices/', views.OfficeListCreateView.as_view(), name='office-list-create'),
     path('vehicles/', views.VehicleListCreateView.as_view(), name='vehicle-list-create'),
     path('vehicle/create', views.VehicleCreateView.as_view(), name='vehicle-create'),
+    path('vehicle/<int:pk>/show', views.VehicleDetailView.as_view(), name='vehicle-show'),
 ]

@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function AddCar() {
 
@@ -8,50 +11,30 @@ export default function AddCar() {
     setselectedOptionType(event.target.value);
   };
 
+  let navigate = useNavigate();
+
   let createCar = async (e) => {
     e.preventDefault();
-    let response = await axios.post(
-      "http://localhost:8000/api/staff_member/create/",
-      {
-        email: e.target.email.value,
-        name: e.target.name.value,
-        last_name: e.target.last_name.value,
-        cedula: e.target.cedula.value,
-        telephone: e.target.telephone.value,
-        password: e.target.password.value,
-        company_position: e.target.company_position.value,
-        office: e.target.office.value,
-        city: e.target.city.value,
-        active: e.target.active.value
-      },
-      {
+    const form = e.target;
+    const formData = new FormData(form);
+    console.log("FORMDATA:", formData)
+    try {
+      const response = await axios.post("http://localhost:8000/api/vehicle/create", formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
-      }
-    );
-    let data = await response.data;
-    console.log("data: ", data);
-    if (response.status === 201) {
-      let response = await fetch("http://localhost:8000/api/token/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: e.target.email.value,
-          password: e.target.password.value,
-        }),
       });
-      let data = await response.json();
-      console.log("data: ", data);
-      setAuthTokens(data);
-      setUser(jwt_decode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-      navigate("/staff_members");
-      toast.success("¡La creación del empleado ha sido exitosa!");
-    } else {
-      alert("Something went wrong!");
+      
+      console.log("data:", response.data);
+      if (response.status === 201) {
+        navigate("/show_cars");
+        toast.success("¡El vehículo ha sido agregado!");
+      }
+      // Aquí puedes realizar cualquier acción adicional después de crear el vehículo
+      
+    } catch (error) {
+      console.error("Error:", error);
+      // Aquí puedes manejar el error en caso de que la solicitud falle
     }
   };
 
@@ -78,6 +61,22 @@ export default function AddCar() {
               required
             />
           </div>
+          <div className="mb-4">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-bold mb-2"
+            >
+              Nombre
+            </label>
+            <input
+              name="name"
+              type="text"
+              id="name"
+              className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500 text-black"
+              placeholder="Ingresa la marca del vehículo"
+              required
+            />
+          </div>
           <div className="mb-6">
             <label
               htmlFor="type"
@@ -90,6 +89,7 @@ export default function AddCar() {
               value={selectedOptionType}
               onChange={handleChangeType}
               id="type"
+              name="type"
             >
               <option value="">Selecciona una opción</option>
               <option value="Eléctrico">Eléctrico</option>
@@ -203,7 +203,7 @@ export default function AddCar() {
               id="description"
               name="description"
               rows="4"
-              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Escribe una descripción..."
             ></textarea>
           </div>
@@ -215,8 +215,9 @@ export default function AddCar() {
               Subir imagen
             </label>
             <input
-              class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-              id="file_input"
+              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+              id="image"
+              name="image"
               type="file"
             />
           </div>

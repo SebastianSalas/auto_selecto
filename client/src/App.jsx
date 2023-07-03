@@ -29,7 +29,7 @@ export default function App() {
       <Route path="/add_staff" element={<AddStaffMember/>}/>
       <Route path="/add_car" element={<AddCar/>}/>
       <Route path="/staff_member/:id/edit" element={<EditStaffMember />} />
-      <Route path="/car/:id" element={<CarDetail/>} />
+      <Route path="/car/:id/show" element={<CarDetail/>} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
