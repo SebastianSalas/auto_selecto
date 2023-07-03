@@ -28,11 +28,11 @@ export default function CarDetail() {
   let imgCar = "";
 
   return (
-    <div className="w=[80%] px-6 py-2    flex shadow-md my-20 justify-between items-center h-screen animate-fade-right animate-once animate-duration-[1500ms] animate-delay-0">
+    <div className="w=[80%] px-6 py-2 flex shadow-md my-20 justify-between items-center h-screen animate-fade-right animate-once animate-duration-[1500ms] animate-delay-0">
       <div className="w-[50%]">
         <img src={car.image} alt="Imagen del carro" />
       </div>
-      <div className="w-[40%] bg-white rounded h-[50%] flex flex-col p-6">
+      <div className="w-[40%] bg-white rounded flex flex-col p-6">
         <div className="flex-grow">
           <h2 className="text-black font-bold text-center text-2xl mb-3">
             Vehiculo
@@ -64,12 +64,12 @@ export default function CarDetail() {
           </p>
           <p className="text-black mb-3">
             <span className="font-semibold">Descripcion: </span>
-            {car.description}
+            Nuevo Tesla Model 3, con su diseño deportivo y una velocidad única. Adquierelo ahora mismo!
           </p>
+          <button className="bg-green-600 rounded p-2 w-[50%] mx-auto block">
+            Cotizar
+          </button>
         </div>
-        <button className="bg-green-600 rounded p-2 w-[50%] mx-auto block">
-          Cotizar
-        </button>
       </div>
     </div>
   );

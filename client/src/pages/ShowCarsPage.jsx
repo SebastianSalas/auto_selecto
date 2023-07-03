@@ -19,32 +19,26 @@ export default function ShowCarsPage() {
   }, []);
   return (
     <div className="container px-10 mt-40 text-center">
-      <div
-        style={{
-          display: "flex",
-          gap: "1rem",
-          alignItems: "center",
-          marginBottom: "2rem",
-        }}
-      >
-        <input
-          type="text"
-          className="border w-[30%] border-gray-300 rounded px-4 py-2 text-black"
-          placeholder="Buscar carros"
-          style={{ height: "2rem" }} // Ajustar la altura según tus necesidades
-        />
-        <Link
-          to="/add_car"
-          className="bg-green-600 rounded p-1"
-          style={{ height: "2rem", width: "3rem" }}
-        >
-          {" "}
-          {/* Ajustar la altura según tus necesidades */}+
-        </Link>
-      </div>
-      <h1 className="font-bold mb-10 text-center text-5xl">
-        Catalogo de Carros
-      </h1>
+        <h1 className="font-bold mb-10 text-center text-5xl">
+            Catalogo de Carros
+        </h1>
+        <div className="flex justify-center gap-4 mb-14">
+            <input
+            type="text"
+            className="border w-[30%] border-gray-300 rounded px-4 py-2 text-black"
+            placeholder="Buscar carros"
+            style={{ height: "2rem" }} // Ajustar la altura según tus necesidades
+            />
+            <Link
+            to="/add_car"
+            className="bg-green-600 rounded p-1"
+            style={{ height: "2rem", width: "3rem" }}
+            >
+            {" "}
+            {/* Ajustar la altura según tus necesidades */}+
+            </Link>
+        </div>
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {cars.map((car) => (
           <div key={car.id} className="bg-white shadow rounded p-4">
