@@ -12,4 +12,7 @@ urlpatterns = [
     path('vehicle/create', views.VehicleCreateView.as_view(), name='vehicle-create'),
     path('vehicle/<int:pk>/show', views.VehicleDetailView.as_view(), name='vehicle-show'),
     path('search_vehicle/', views.VehicleSearchView.as_view(), name='vehicle-search'),
+    path('vehicle_quotations/', views.VehicleQuotationListCreateView.as_view(), name='vehicle-quotations'),
+    path('vehicle_quotation/create', views.VehicleQuotationListCreateView.as_view(), name='vehicle-quotation-create'),
+
 ]

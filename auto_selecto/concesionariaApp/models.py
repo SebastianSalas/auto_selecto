@@ -71,10 +71,13 @@ class Vehicle(models.Model):
 
 class VehicleQuotation(models.Model):
   client = models.ForeignKey(Client, on_delete=models.CASCADE)
-  vendor = models.ForeignKey(StaffMember, on_delete=models.CASCADE)
+  vendor = models.ForeignKey(StaffMember, on_delete=models.CASCADE, blank=True, null=True)
   city = models.ForeignKey(City, on_delete=models.CASCADE)
   office = models.ForeignKey(Office, on_delete=models.CASCADE)
   vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
   created_at = models.DateTimeField(auto_now_add=True)
   closed_at = models.DateTimeField(blank=True, null=True)
+
+  def __str__(self):
+    return f"id: {self.id}, client: {self.client_id}, city: {self.city.id}, office: {self.office.id}, vehicle: {self.vehicle.id}, created_at: {self.created_at}, closed_at: {self.closed_at}"
   

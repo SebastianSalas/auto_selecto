@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.db.models import Q
 from rest_framework import generics
-from .models import City, CompanyPosition, Office, Vehicle
-from .serializers import CitySerializer, CompanyPositionSerializer, OfficeSerializer, VehicleSerializer
+from .models import City, CompanyPosition, Office, Vehicle, VehicleQuotation
+from .serializers import CitySerializer, CompanyPositionSerializer, OfficeSerializer, VehicleSerializer, VehicleQuotationSerializer
 
 class CityListCreateView(generics.ListCreateAPIView):
   queryset = City.objects.all()
@@ -35,12 +35,23 @@ class VehicleSearchView(generics.ListAPIView):
     serializer_class = VehicleSerializer
 
     def get_queryset(self):
-        search_query = self.request.query_params.get('search', '')
-        search_terms = search_query.split()  # Divide la consulta en términos individuales
+      search_query = self.request.query_params.get('search', '')
+      search_terms = search_query.split()  # Divide la consulta en términos individuales
 
-        queryset = Vehicle.objects.all()
+      queryset = Vehicle.objects.all()
 
-        for term in search_terms:
-            queryset = queryset.filter(Q(name__icontains=term) | Q(brand__icontains=term))
+      for term in search_terms:
+          queryset = queryset.filter(Q(name__icontains=term) | Q(brand__icontains=term))
 
-        return queryset
+      return queryset
+
+class VehicleQuotationListCreateView(generics.ListCreateAPIView):
+    queryset = VehicleQuotation.objects.all()
+    serializer_class = VehicleQuotationSerializer
+
+class VehicleQuotationRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = VehicleQuotation.objects.all()
+    serializer_class = VehicleQuotationSerializer
+
+class VehicleQuotationCreateView(generics.CreateAPIView):
+   serializer_class = VehicleQuotationSerializer
