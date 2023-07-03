@@ -18,7 +18,7 @@ export default function ShowCarsPage() {
     fetchCars();
   }, []);
   return (
-    <div className="container px-10 mt-40 text-center">
+    <div className="px-10 mt-40 text-center">
         <h1 className="font-bold mb-10 text-center text-5xl">
             Catalogo de Carros
         </h1>
