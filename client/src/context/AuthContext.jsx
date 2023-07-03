@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
   const [cities, setCities] = useState([]);
   const [companyPositions, setCompanyPositions] = useState([]);
   const [offices, setOffices] = useState([]);
-  const [vehicleQuotations, setVehicleQuotations] = useState([]);
+  
 
 
   let [loading, setLoading] = useState(true);
@@ -35,33 +35,35 @@ export const AuthProvider = ({ children }) => {
   // -------------- AUTH LOGIC ---------------
   let loginUser = async (e) => {
     e.preventDefault();
-    const response = await axios.post(
-      "http://localhost:8000/api/token/",
-      {
-        email: e.target.email.value,
-        password: e.target.password.value,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/token/",
+        {
+          email: e.target.email.value,
+          password: e.target.password.value,
         },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      let data = await response.data;
+      console.log("data: ", data);
+      if (response.status === 200) {
+        if (jwt_decode(data.access).active === false) {
+          toast.error("No tienes acceso a tu perfil");
+          logoutUser();
+        } else {
+          setAuthTokens(data);
+          setUser(jwt_decode(data.access));
+          localStorage.setItem("authTokens", JSON.stringify(data));
+          navigate("/");
+          toast.success("Has iniciado sesión");
+        }
       }
-    );
-    let data = await response.data;
-    console.log("data: ", data);
-    if (response.status === 200) {
-      if (jwt_decode(data.access).active === false) {
-        toast.error("No tienes acceso a tu perfil");
-        logoutUser();
-      } else {
-        setAuthTokens(data);
-        setUser(jwt_decode(data.access));
-        localStorage.setItem("authTokens", JSON.stringify(data));
-        navigate("/");
-        toast.success("Has iniciado sesión");
-      }
-    } else {
-      alert("Something went wrong!");
+    } catch (error) {
+      toast.error("Email o contraseña incorrectos");
     }
   };
 
@@ -224,20 +226,7 @@ export const AuthProvider = ({ children }) => {
     fetchOffices();
   }, []);
 
-  useEffect(() => {
-    const fetchVehicleQuotations = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:8000/api/vehicle_quotations"
-        );
-        setVehicleQuotations(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
-    fetchVehicleQuotations();
-  }, []);
 
   // ---------------- TOKENS MANAGE ------------------
 
@@ -284,7 +273,6 @@ export const AuthProvider = ({ children }) => {
     cities: cities,
     companyPositions: companyPositions,
     offices: offices,
-    vehicleQuotations: vehicleQuotations,
   };
 
   return (
@@ -296,6 +284,18 @@ export const fetchStaffMember = async (id) => {
   try {
     const response = await axios.get(
       `http://localhost:8000/api/staff_member/${id}/edit`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const fetchClient = async (id) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8000/api/client/${id}/`
     );
     return response.data;
   } catch (error) {

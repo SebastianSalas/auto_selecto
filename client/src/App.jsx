@@ -16,6 +16,7 @@ import CarDetail from "./pages/CarDetail";
 import ReportPage from "./pages/ReportPage";
 import VehicleQuotationsIndexPage from "./pages/VehicleQuotationsIndexPage";
 import InfoClientPage from "./pages/InfoClientePage";
+import VehicleQuotation from "./pages/VehicleQuotationPage";
 
 export default function App() {
   let { user } = useContext(AuthContext);
@@ -29,6 +30,7 @@ export default function App() {
       <Route path="/sign_up" element={!user ? <SignupPage /> : <Navigate to="/" />} />
       <Route path="/staff_members" element={<StaffMembersIndexPage/>}/>
       <Route path="/vehicle_quotations" element={<VehicleQuotationsIndexPage/>}/>
+      <Route path="/vehicle_quotation/:id" element={<VehicleQuotation/>}/>
       <Route path="/show_cars" element={<ShowCarsPage/>}/>
       <Route path="/add_staff" element={<AddStaffMember/>}/>
       <Route path="/add_car" element={<AddCar/>}/>

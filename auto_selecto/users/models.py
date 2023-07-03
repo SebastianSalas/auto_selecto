@@ -56,6 +56,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_staff_member_id(self):
        return self.staffmember.id
     
+    def get_client_id(self):
+       return self.client.id
+    
     def has_staff_member_object(self):
         has_staff_member = False
         try:
@@ -71,6 +74,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         except 'concesionariaApp.City'.DoesNotExist:
             pass
         return has_city
+    
+    def has_client_object(self):
+        has_client = False
+        try:
+            has_client = (self.client is not None)
+        except Client.DoesNotExist:
+            pass
+        return has_client
 
 class Client(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -1,14 +1,34 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import numeral from "numeral";
+import { fetchClient } from "../context/AuthContext";
+import AuthContext from "../context/AuthContext";
 
 export default function CarDetail() {
+  let { user } = useContext(AuthContext);
   const { id } = useParams();
-  //const car = carsData.find((car) => car.id == id);
   const [car, setCar] = useState({});
 
+  const [client, setClient] = useState([]);
+  const handleFetchClient = async (id) => {
+    try {
+      if (id) {
+        const fetchedClient = await fetchClient(id);
+        setClient(fetchedClient);
+        console.log(fetchedClient);
+      }
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    if (user) {
+      handleFetchClient(user.client_id);
+    }
+  }, [user]);
+
+  console.log("user", user);
   useEffect(() => {
     const fetchCar = async () => {
       try {
@@ -25,8 +45,7 @@ export default function CarDetail() {
     fetchCar();
   }, [id]);
 
-  console.log(car.image);
-  let imgCar = "";
+  console.log("cliente", client);
 
   return (
     <div className="w=[80%] px-6 py-2 flex shadow-md my-20 justify-between items-center h-screen animate-fade-right animate-once animate-duration-[1500ms] animate-delay-0">
@@ -72,9 +91,24 @@ export default function CarDetail() {
               $ {numeral(car.value).format("0,0")}
             </span>
           </p>
-          <button className="bg-green-600 rounded p-2 w-[50%] mx-auto block">
-            Cotizar
-          </button>
+          {!user || (Array.isArray(client) && client.length > 0) ? (
+            <Link to="/sign_up">
+              <button
+                className="bg-green-600 rounded p-2 w-[50%] mx-auto block"
+                onClick={() =>
+                  toast.info("Debes registrarte para poder cotizar")
+                }
+              >
+                Cotizar
+              </button>
+            </Link>
+          ) : Object.keys(client).length > 0 ? (
+            <Link to={`/vehicle_quotation/${car.id}`}>
+              <button className="bg-green-600 rounded p-2 w-[50%] mx-auto block">
+                Cotizar
+              </button>
+            </Link>
+          ) : null}
         </div>
       </div>
     </div>

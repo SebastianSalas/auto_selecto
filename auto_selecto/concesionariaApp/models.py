@@ -80,5 +80,5 @@ class VehicleQuotation(models.Model):
   sold = models.BooleanField(default=False)
 
   def __str__(self):
-    return f"id: {self.id}, client: {self.client_id}, city: {self.city.id}, office: {self.office.id}, vehicle: {self.vehicle.id}, created_at: {self.created_at}, closed_at: {self.closed_at}"
+    return f"id: {self.id}, client: {self.client_id}, city: {self.city.id}, sold: {self.sold}, office: {self.office.id}, vehicle: {self.vehicle.id}, created_at: {self.created_at}, closed_at: {self.closed_at}"
   

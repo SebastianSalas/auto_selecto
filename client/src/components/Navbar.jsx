@@ -17,7 +17,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
   
     }
   };
-
+  console.log("User: ", user)
   useEffect(() => {
     if (user) {
       navbarHideUserProfile();
