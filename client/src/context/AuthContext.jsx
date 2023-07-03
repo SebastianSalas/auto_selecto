@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
   const [cities, setCities] = useState([]);
   const [companyPositions, setCompanyPositions] = useState([]);
   const [offices, setOffices] = useState([]);
-  
+
 
   let [loading, setLoading] = useState(true);
 
@@ -132,7 +132,7 @@ export const AuthProvider = ({ children }) => {
         company_position: e.target.company_position.value,
         office: e.target.office.value,
         city: e.target.city.value,
-        active: e.target.active.value
+        active: e.target.active.value,
       },
       {
         headers: {
@@ -273,4 +273,16 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
   );
+};
+
+export const fetchStaffMember = async (id) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8000/api/staff_member/${id}/edit`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };

@@ -1,17 +1,30 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import navbarHideUserProfile from "../scripts/navbar_hide_user_profile";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import logo from "../assets/images/logo.png";
+import { fetchStaffMember } from "../context/AuthContext";
 
 const Navbar = ({ logout, isAuthenticated }) => {
-  let { user, logoutUser, staffMember } = useContext(AuthContext);
+  let { user, logoutUser } = useContext(AuthContext);
+  const [staffMember, setStaffMember] = useState([]);
+  const handleFetchStaffMember = async (id) => {
+    try {
+      const fetchedStaffMember = await fetchStaffMember(id);
+      console.log(fetchedStaffMember)
+      setStaffMember(fetchedStaffMember);
+    } catch (error) {
+  
+    }
+  };
 
-  if(user){
-    useEffect(() => {
+  useEffect(() => {
+    if (user) {
       navbarHideUserProfile();
-    }, []);  
-  }
+      handleFetchStaffMember(user.staff_member_id);
+    }
+  }, [user]);
+  
   return (
     <nav className="sm:px-6 lg:px-8 py-6 px-10 flex items-center fixed top-0 w-full justify-between z-50">
       <div className="relative flex h-16 items-center justify-between w-full">
@@ -114,12 +127,28 @@ const Navbar = ({ logout, isAuthenticated }) => {
           </div>
         </div>
         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-          {user && user.company_position_id === 1 ? (
+          {user && staffMember && staffMember.company_position_name === "Manager" ? (
             <Link
               to="/staff_members"
               className="text-white hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium mr-5"
             >
               Empleados
+            </Link>
+          ) : null}
+          {user && staffMember && staffMember.company_position_name === "Manager" ? (
+            <Link
+              to="/report"
+              className="text-white hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium mr-5"
+            >
+              Reportes
+            </Link>
+          ) : null}
+          {user && staffMember && staffMember.company_position_name === "Vendedor" ? (
+            <Link
+              to="/report"
+              className="text-white hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium mr-5"
+            >
+              Cotizaciones
             </Link>
           ) : null}
 
