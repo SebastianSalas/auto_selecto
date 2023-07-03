@@ -1,3 +1,4 @@
+import numeral from "numeral";
 const QuoteCar = (props)=>{
     return(
         <article className="border-2 rounded-xl w-[35%] p-6">
@@ -5,6 +6,7 @@ const QuoteCar = (props)=>{
             <p className="mb-4"><span className="font-bold">Marca: </span>{props.brand}</p>
             <p className="mb-4"><span className="font-bold">Modelo: </span>{props.name}</p>
             <p className="mb-4"><span className="font-bold">Año: </span>{props.year}</p>
+            <p className="mb-4"><span className="font-bold">Precio: </span>$ {numeral(props.value).format("0,0")}</p>
         </article>
     )
 }

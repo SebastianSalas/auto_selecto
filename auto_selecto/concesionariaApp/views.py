@@ -70,4 +70,13 @@ class VehicleQuotationByVendorView(generics.ListAPIView):
 
     def get_queryset(self):
         staffmember_id = self.kwargs['staffmember_id']
-        return VehicleQuotation.objects.filter(vendor_id=staffmember_id)
+        return VehicleQuotation.objects.filter(
+            Q(vendor_id=staffmember_id) & Q(closed_at__isnull=True)
+        )
+    
+class VehicleQuotationDetailView(generics.RetrieveAPIView):
+    serializer_class = VehicleQuotationSerializer
+
+    def get_queryset(self):
+      pk = self.kwargs.get('pk')
+      return VehicleQuotation.objects.filter(pk=pk)

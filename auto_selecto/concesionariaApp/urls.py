@@ -15,5 +15,6 @@ urlpatterns = [
     path('vehicle_quotations/', views.VehicleQuotationListCreateView.as_view(), name='vehicle-quotations'),
     path('vehicle_quotation/create', views.VehicleQuotationListCreateView.as_view(), name='vehicle-quotation-create'),
     path('vehicle_quotation/<int:pk>/edit/', views.VehicleQuotationRetrieveUpdateDestroyView.as_view(), name='vehicle_quotation_update'),
+    path('vehicle_quotation/<int:pk>/show/', views.VehicleQuotationDetailView.as_view(), name='vehicle_quotation_detail'),
     path('vehicle_quotations/vendor/<int:staffmember_id>/', views.VehicleQuotationByVendorView.as_view(), name='vehicle-quotation-by-vendor'),
 ]

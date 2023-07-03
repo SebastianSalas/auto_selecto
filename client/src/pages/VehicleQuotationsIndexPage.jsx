@@ -225,8 +225,7 @@ export default function VehicleQuotationsIndexPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-center">
                       <Link
-                        to="#"
-                        onClick={() => updateVehicleQuotation(quotation.id)}
+                        to={`/quotation/${quotation.id}/show`}
                         className="text-blue-600 hover:text-blue-900"
                       >
                         Ver
