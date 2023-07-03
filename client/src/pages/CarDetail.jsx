@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import numeral from "numeral";
 
 export default function CarDetail() {
   const { id } = useParams();
@@ -34,37 +35,42 @@ export default function CarDetail() {
       </div>
       <div className="w-[40%] bg-white rounded flex flex-col p-6">
         <div className="flex-grow">
-          <h2 className="text-black font-bold text-center text-2xl mb-3">
-            Vehiculo
-          </h2>
-          <h3 className="text-black font-semibold text-lg mb-3">
+          <h3 className="text-black font-semibold text-4xl mb-3">
             {car.brand} {car.name} {car.year}
           </h3>
+
           <p className="text-black mb-3">
-            <span className="font-semibold">Marca: </span> {car.brand}
+            <span className="font-semibold text-lg">Marca:</span> {car.brand}
           </p>
           <p className="text-black mb-3">
-            <span className="font-semibold">Modelo: </span>
-            {car.name}
+            <span className="font-semibold text-lg">Modelo:</span> {car.name}
           </p>
           <p className="text-black mb-3">
-            <span className="font-semibold">Año: </span> {car.year}
+            <span className="font-semibold text-lg">Año:</span> {car.year}
           </p>
           <p className="text-black mb-3">
-            <span className="font-semibold">Caballos de fuerza: </span>
+            <span className="font-semibold text-lg">Caballos de fuerza:</span>{" "}
             {car.hp} HP
           </p>
           <p className="text-black mb-3">
-            <span className="font-semibold">Torque: </span>
-            {car.torque} N.M
+            <span className="font-semibold text-lg">Torque:</span> {car.torque}{" "}
+            N.M
           </p>
           <p className="text-black mb-3">
-            <span className="font-semibold">Tipo de motor: </span>
+            <span className="font-semibold text-lg">Tipo de motor:</span>{" "}
             {car.type}
           </p>
           <p className="text-black mb-3">
-            <span className="font-semibold">Descripcion: </span>
-            Nuevo Tesla Model 3, con su diseño deportivo y una velocidad única. Adquierelo ahora mismo!
+            <span className="font-semibold text-lg">Descripción:</span>{" "}
+            {car.description}
+          </p>
+
+          <p className="text-black mb-3">
+            <span className="font-semibold text-xl">Precio:</span>
+            <br />
+            <span className="font-bold text-2xl">
+              $ {numeral(car.value).format("0,0")}
+            </span>
           </p>
           <button className="bg-green-600 rounded p-2 w-[50%] mx-auto block">
             Cotizar

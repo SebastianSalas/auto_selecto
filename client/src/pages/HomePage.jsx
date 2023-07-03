@@ -1,5 +1,5 @@
+import { Link } from "react-router-dom";
 import VideoInical from "../assets/videos/video-inicial.webm";
-
 
 export default function HomePage() {
   return (
@@ -18,12 +18,9 @@ export default function HomePage() {
 
             <footer className="flex flex-col flex-grow justify-end pb-24">
               <div>
-                <a
-                  className="border-2 border-white bg-white/5 backdrop-blur-3xl text-sm rounded font-medium px-6 py-2 inline-block"
-                  href="#"
-                >
-                  Ver Vehículos Disponibles
-                </a>
+                <Link to='/show_cars' className="border-2 border-white bg-white/5 backdrop-blur-3xl text-sm rounded font-medium px-6 py-2 inline-block">
+                  Ver vehiculos disponibles
+                </Link>
               </div>
             </footer>
           </div>
@@ -39,7 +36,6 @@ export default function HomePage() {
             </video>
           </div>
         </section>
-        
       </main>
     </>
   );
