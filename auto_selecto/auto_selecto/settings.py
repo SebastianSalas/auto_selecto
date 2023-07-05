@@ -25,8 +25,6 @@ ALLOWED_HOSTS = ["*"] #Indica cuales hostnames se pueden conectar a la aplicaci√
 # Application definition
 
 INSTALLED_APPS = [
-    'concesionariaApp.apps.ConcesionariaappConfig.name',
-    'users.apps.UsersConfig.name',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -36,7 +34,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
-    'djoser'
+    'djoser',
+    'concesionariaApp',
+    'users',
 ]
 
 MIDDLEWARE = [
