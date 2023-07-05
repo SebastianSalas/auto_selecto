@@ -25,8 +25,8 @@ ALLOWED_HOSTS = ["*"] #Indica cuales hostnames se pueden conectar a la aplicaci√
 # Application definition
 
 INSTALLED_APPS = [
-    'concesionariaApp.apps.ConcesionariaappConfig',
-    'users.apps.UsersConfig',
+    'concesionariaApp',
+    'users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
