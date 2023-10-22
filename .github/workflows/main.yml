@@ -4,18 +4,24 @@ on:
   push:
     branches:
       - develop
+      - main
+      - feature/**
   pull_request:
     branches:
       - main
 
 jobs:
-  test:
+  docker:
     name: Django Rest API/React
+    timeout-minutes: 10
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Start containers
+      run: docker-compose -f "docker-compose.yml" up -d --build
 
     - name: Set up Django-Python
       uses: actions/setup-python@v2
@@ -36,3 +42,7 @@ jobs:
 
     - name: Run API tests
       run: cd auto_selecto && python manage.py test users.tests
+
+    - name: Stop containers
+      if: always()
+      run: docker-compose -f "docker-compose.yml" down
