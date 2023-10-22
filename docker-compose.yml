@@ -33,3 +33,6 @@ services:
             - /datadir:/var/lib/postgresql/data
     aprrka:
         restart: always
+        build: .
+        depends_on:
+            - web
