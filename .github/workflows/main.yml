@@ -1,6 +1,9 @@
 name: CI for Rest API and Frontend client
 
 on:
+  push:
+    branches:
+      - develop
   pull_request:
     branches:
       - main
@@ -36,4 +39,4 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run API tests
-      run: python manage.py test users.tests
+      run: cd auto_selecto && python manage.py test users.tests
