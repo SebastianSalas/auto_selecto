@@ -8,8 +8,6 @@ RUN apk add --update --no-cache --virtual .temp-build-deps \
         && apk add gcc libc-dev linux-headers postgresql-dev \
         && pip install --upgrade pip \
         && pip install -r requirements.txt \
-        && pip uninstall django \
-        && pip install django==4.1 \
         && apk del .temp-build-deps
 
 RUN mkdir app
