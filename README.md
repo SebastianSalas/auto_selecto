@@ -2,15 +2,18 @@
   <img width='200' heigth='225' src='https://user-images.githubusercontent.com/62605744/171186764-43f7aae0-81a9-4b6e-b4ce-af963564eafb.png'>
 </p>
 
-# Proyecto desarrollo de software I
-- Proyecto final desarrolo de software I
-- Semestre 2023-I
-- Profesor: Carlos Mauricio Gaona Cuevas
+# Proyecto desarrollo de software II
+- Proyecto final desarrolo de software II
+- Semestre 2023-II
+- Profesor: Fredy Alexander Ballesteros
 
 ## Autores
 - Marcelo Alejandro García Millán - 201941427
 - Janiert Sebastián Salas Castillo - 201941265
 - Diego Fernando Victoria López - 202125877
+- Hassen David Ortíz Álvares - 202177273
+- Juan Camilo Ortíz Gonzalez - 202023921
+- Marcela Mazo Castro - 201843612
 
 
 ## Como ejecutar el código con ambiente virtual:
