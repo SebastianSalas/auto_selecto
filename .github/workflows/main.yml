@@ -1,11 +1,13 @@
-name: CI for Rest API and Frontend client
+name: Feature CI for Rest API and FronteEnd Client
 
 on:
   push:
     branches:
       - develop
       - main
-      - feature/**
+      - feature
+      - release
+      - hotfix
   pull_request:
     branches:
       - main
@@ -17,32 +19,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Start containers
-      run: docker-compose -f "docker-compose.yml" up -d --build
+      - name: Start containers
+        run: docker-compose -f "docker-compose.yml" up -d --build
 
-    - name: Set up Django-Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.11
+      - name: Set up Django-Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
 
-    - name: Install virtual env
-      run: python -m pip install --upgrade pip && pip install virtualenv
+      - name: Install virtual env
+        run: python -m pip install --upgrade pip && pip install virtualenv
 
-    - name: Create virtual env
-      run: python -m venv .venv
+      - name: Create virtual env
+        run: python -m venv .venv
 
-    - name: Activate virtual env
-      run: source .venv/bin/activate
+      - name: Activate virtual env
+        run: source .venv/bin/activate
 
-    - name: Install dependencies
-      run: python -m pip install --upgrade pip && pip install -r requirements.txt
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && pip install -r requirements.txt
 
-    - name: Run API tests
-      run: cd auto_selecto && python manage.py test users.tests
+      - name: Run API tests
+        run: cd auto_selecto && python manage.py test users.tests
 
-    - name: Stop containers
-      if: always()
-      run: docker-compose -f "docker-compose.yml" down
+      - name: Stop containers
+        if: always()
+        run: docker-compose -f "docker-compose.yml" down
