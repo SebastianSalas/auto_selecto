@@ -17,7 +17,7 @@ services:
             DB_HOST: db
             DB_NAME: app
             DB_USER: postgres
-            DB_PASSWORD: 123456
+            DB_PASSWORD: postgres
         depends_on:
             - db
 
@@ -26,7 +26,7 @@ services:
         environment:
             POSTGRES_DB: app
             POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: 123456
+            POSTGRES_PASSWORD: postgres
             POSTGRES_HOST_AUTH_METHOD: trust
         ports:
             - "5432:5432"

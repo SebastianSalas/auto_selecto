@@ -76,32 +76,31 @@ WSGI_APPLICATION = 'auto_selecto.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'auto_selecto',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': 'localhost',
-#         'DATABASE_PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'DATABASE_PORT': '5432',
+    }
+}
 
 # DATABASES = {
 #     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 # }
 
 # To work properly with docker-compose
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': os.environ.get('DB_HOST','db'),
-        'NAME': os.environ.get('DB_NAME','app'),
-        'USER': os.environ.get('DB_USER','postgres'),
-        'PASSWORD': os.environ.get('DB_PASSWORD','postgres'),
-
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'HOST': os.environ.get('DB_HOST','db'),
+#         'NAME': os.environ.get('DB_NAME','app'),
+#         'USER': os.environ.get('DB_USER','postgres'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD','postgres'),
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
