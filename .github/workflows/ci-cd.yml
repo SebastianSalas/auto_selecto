@@ -1,0 +1,54 @@
+name: CI/CD
+# TODO: Update API's tokens from Heroku and GitHub Pages within GitHub repository settings (secrets)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build and push backend docker image
+        run: |
+          docker build -t backend_autoselecto .
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker tag backend_autoselecto ${{ secrets.DOCKERHUB_USERNAME }}/backend_autoselecto
+
+      - name: Deploy backend to Heroku
+      run: |
+        docker build -t backend_autoselecto .
+        echo "${{ secrets.HEROKU_API_KEY }}" | docker login --username=_ --password-stdin registry.heroku.com
+        docker tag backend_autoselecto registry.heroku.com/backend_autoselecto/web
+        docker push registry.heroku.com/backend_autoselecto/web
+        heroku container:release web -a backend_autoselecto
+
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build and push frontend docker image
+        run: |
+          docker build -t frontend_autoselecto .
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker tag frontend_autoselecto ${{ secrets.DOCKERHUB_USERNAME }}/frontend_autoselecto
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend_autoselecto
+
+      - name: Deploy frontend to GitHub Pages
+        run: |
+          npm install
+          npm run build
+          git checkout gh-pages
+          git pull origin main
+          cp -r dist/* .
+          git add .
+          git commit -m "Update frontend to GitHub Pages"
+          git push origin gh-pages

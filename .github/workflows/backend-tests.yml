@@ -1,4 +1,4 @@
-name: CI for Rest API and Frontend client
+name: Tests for backend
 
 on:
   pull_request:
