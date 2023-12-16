@@ -24,7 +24,7 @@ jobs:
           context: ./auto_selecto
           file: ./auto_selecto/Dockerfile
           push: true
-          tags: ${{ secrets.BACK_REPOSITORY }}:latest, ${{ secrets.BACK_REPOSITORY }}:${{ github.ref_name }}
+          tags: ${{ github.repository }}-backend:latest, ${{ secrets.BACK_REPOSITORY }}:${{ github.ref_name }}
           labels: backend
 
       - name: Deploy to Render (Production)
@@ -50,7 +50,7 @@ jobs:
           context: ./client
           file: ./client/Dockerfile
           push: true
-          tags: ${{ secrets.FRONT_REPOSITORY }}:latest, ${{ secrets.FRONT_REPOSITORY }}:${{ github.ref_name }}
+          tags: ${{ github.repository }}-frontend:latest, ${{ secrets.FRONT_REPOSITORY }}:${{ github.ref_name }}
           labels: frontend
 
       - name: Deploy to Render (Production)
