@@ -30,4 +30,4 @@ const carsData = [
 
 ];
 
-export default carsData
+export default carsData 
